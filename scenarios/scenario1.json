@@ -1,0 +1,19 @@
+{
+  "target": "127.0.0.1:8080",
+  "connections": 100,
+  "duration": "30s",
+  "timeout": "2s",
+  "cleanup_timeout": "2m",
+  "prepare": {
+    "template": "SET {{key}} {{value}}",
+    "count": 10000
+  },
+  "commands": [
+    {"template": "GET {{key}}", "weight": 80},
+    {"template": "SET {{key}} {{value}}", "weight": 15},
+    {"template": "DEL {{key}}", "weight": 5}
+  ],
+  "cleanup": {
+    "template": "DEL {{key}}"
+  }
+}
